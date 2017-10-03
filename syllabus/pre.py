@@ -8,7 +8,6 @@ logging.basicConfig(format='%(levelname)s:%(message)s',
 log = logging.getLogger(__name__)
 
 
-base = arrow.now()
 
 def process(raw):
     """
@@ -19,7 +18,11 @@ def process(raw):
     """
     field = None
     entry = { }
-    cooked = [ ] 
+    cooked = [ ]
+
+    base = arrow.now()
+    current_time = base
+
     for line in raw:
         log.debug("Line: {}".format(line))
         line = line.strip()
@@ -27,6 +30,7 @@ def process(raw):
             log.debug("Skipping")
             continue
         parts = line.split(':')
+        #print(parts)
         if len(parts) == 1 and field:
             entry[field] = entry[field] + line + " "
             continue
@@ -38,27 +42,33 @@ def process(raw):
                 "Split into |{}|".format("|".join(parts)))
 
         if field == "begin":
-            try:
+            try:# base is begin date
                 base = arrow.get(content, "MM/DD/YYYY")
-                # print("Base date {}".format(base.isoformat()))
+                current_time = base
+                print("Base date {}".format(base.isoformat()))
             except:
                 raise ValueError("Unable to parse date {}".format(content))
 
         elif field == "week":
-            if entry:
-                cooked.append(entry)
+            if entry:# entry has some content
+                cooked.append(entry) # finish a week, cooked :)
                 entry = { }
-            entry['topic'] = ""
-            entry['project'] = ""
-            entry['week'] = content
 
-        elif field == 'topic' or field == 'project':
+            week_num = int(content)
+            current_time = base.shift(weeks = +(week_num - 1))
+
+            entry['topic'] = "" # reset entry
+            entry['project'] = ""
+            entry['week'] = "<mark>" + content + r"</mark>" + "\n" + str(current_time.date())
+
+
+        elif field == 'topic' or field == 'project': # begining of new content
             entry[field] = content
 
         else:
             raise ValueError("Syntax error in line: {}".format(line))
 
-    if entry:
+    if entry: # just in case
         cooked.append(entry)
 
     return cooked

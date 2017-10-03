@@ -1,4 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+
 <html> <head>
 <title>Course Schedule</title>
   <link rel="stylesheet" type="text/css" href="static/css/syllabus.css"
@@ -17,8 +18,22 @@
   <tr class="even">
   {% else %}
   <tr class="odd">
-  {% endif %}	   
-    <td class="week">{{ entry.week }}</td>
+  {% endif %}
+
+    {% set flag = True %}
+    {% set the_rest = "" %}
+    <td class="week">{{entry.week|safe}}</td> 
+
+    <!-- <td class="week"><mark>
+    {% for char in entry.week %}
+    {% if char is equalto '\n' %}
+    </mark>
+    {% endif %}
+    {{char}}
+    {% endfor %}
+    
+    </td>-->
+
     <td class="topic">{{ entry.topic }}</td>
     <td class="project">{{ entry.project}}</td>
   </tr>
