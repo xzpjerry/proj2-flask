@@ -30,8 +30,12 @@ tr.even {
     background-color: rgb(224,213,179);
 }
 
-tr.highlighten {
-    background-color: rgb(233,150,122);
+.class-schedule .what {
+    
+    font-weight: bolder;
+    font-size: 150%; 
+    text-align: center;
+    background-color: rgb(224,0,0);
 }
 
 .class-schedule .week {
@@ -40,7 +44,6 @@ tr.highlighten {
     font-size: 150%; 
     text-align: center; 
 }
-
 
 .class-schedule .topic {
     padding-left: 3ex;

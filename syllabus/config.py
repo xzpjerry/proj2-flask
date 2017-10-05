@@ -42,7 +42,7 @@ def command_line_args():
     parser.add_argument("-C", "--config", type=str,
                         help="Alternate configuration file")
     parser.add_argument("-I", "--input", type=str, dest="INPUT",
-                            help="Input syllabus")
+                        help="Input syllabus")
     cli_args = parser.parse_args()
     log.debug("<- Command line args: {}".format(cli_args))
     return cli_args
