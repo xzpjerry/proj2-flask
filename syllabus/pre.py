@@ -45,7 +45,7 @@ def process(raw):
             try:
                 base = arrow.get(content, "MM/DD/YYYY")
                 week_day = int(base.format('d')) - 1
-                if week_daye != 0: # to ensure the first week base date is on Sunday
+                if week_day != 0: # to ensure the first week base date is on Sunday
                     base = base.shift(days = -week_day)
                 # print("Base date {}".format(base.isoformat()))
             except:
