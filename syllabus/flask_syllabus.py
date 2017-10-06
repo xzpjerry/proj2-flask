@@ -4,6 +4,7 @@ displaying a course schedule.  We pre-process the
 input file to set correct dates and highlight the 
 current week (if the academic term is in session). 
 
+To peer viewer, my change for this file is from line 101
 """
 
 
@@ -97,15 +98,19 @@ def format_arrow_date(date):
     except:
         return "(bad date)"
 
+
 def is_the_same_week(date):
-    input_date = date.split('-') # From the entry.week
-    IYY, IMM, IDD = input_date # Inputed year, month, day
-    IYY,IMM,IDD = [int(IYY), int(IMM), int(IDD)]
+    input_date = date.split('-')  # From the entry.week
+    IYY, IMM, IDD = input_date  # Inputed year, month, day
+    IYY, IMM, IDD = [int(IYY), int(IMM), int(IDD)]
 
     input_time_stamp = arrow.get(IYY, IMM, IDD).timestamp
     current_time_stamp = arrow.now().timestamp
-    
-    return current_time_stamp >= input_time_stamp and current_time_stamp - input_time_stamp < 604800
+
+            # later or equal to a start day of a week
+    return ( current_time_stamp >= input_time_stamp 
+        and current_time_stamp - input_time_stamp < 604800 )  # 604800s is 7 days
+
 
 #
 # If run as main program (not under gunicorn), we
@@ -113,5 +118,6 @@ def is_the_same_week(date):
 # so that we can test remote connections.
 #
 if __name__ == "__main__":
-    app.jinja_env.globals.update(is_the_same_week=is_the_same_week) # enable jinja call this funciton
+    # enable jinja call this funciton
+    app.jinja_env.globals.update(is_the_same_week=is_the_same_week)
     app.run(port=configuration.PORT, host="0.0.0.0")

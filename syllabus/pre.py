@@ -1,6 +1,7 @@
 """
 Pre-process a syllabus (class schedule) file. 
 
+my change for this file is at line 25, 26 and area from line 45
 """
 import arrow   # Dates and times
 import logging
@@ -44,10 +45,9 @@ def process(raw):
         if field == "begin":
             try:
                 base = arrow.get(content, "MM/DD/YYYY")
-                week_day = int(base.format('d')) - 1
-                if week_day != 0: # to ensure the first week base date is on Sunday
+                week_day = int(base.format('d')) # to get day of the date
+                if week_day != 7: # to ensure the first week base date is on Sunday
                     base = base.shift(days = -week_day)
-                # print("Base date {}".format(base.isoformat()))
             except:
                 raise ValueError("Unable to parse date {}".format(content))
 
@@ -57,7 +57,7 @@ def process(raw):
                 entry = {}
 
             week_num = int(content)
-            current_time = base.shift(weeks = +(week_num - 1))
+            current_time = base.shift(weeks = +(week_num - 1)) # add a week
 
             entry['topic'] = ""
             entry['project'] = ""
