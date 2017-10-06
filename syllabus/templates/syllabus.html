@@ -20,13 +20,16 @@
   {% endif %}
     {% set week_date = entry.week %}
     {% set date = week_date.split('\n')[1] %}
-    {% if lazy_get_date(date) is equalto 1 %}
-    <td class="what">{{ entry.week }}</td>
+    {% if is_the_same_week(date) is equalto 1 %}
+    <td class="highlight_this_week">{{ entry.week }}</td>
+    <td class="highlight_this_topic">{{ entry.topic }}</td>
+    <td class="highlight_this_project">{{ entry.project}}</td>
     {% else %}
     <td class="week">{{ entry.week }}</td>
-    {% endif %}
     <td class="topic">{{ entry.topic }}</td>
     <td class="project">{{ entry.project}}</td>
+    {% endif %}
+    
   </tr>
   {% endfor %}
   

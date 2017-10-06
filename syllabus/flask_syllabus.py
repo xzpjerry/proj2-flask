@@ -97,7 +97,7 @@ def format_arrow_date(date):
     except:
         return "(bad date)"
 
-def lazy_get_date(date):
+def is_the_same_week(date):
     input_date = date.split('-') # From the entry.week
     IYY, IMM, IDD = input_date # Inputed year, month, day
     IYY,IMM,IDD = [int(IYY), int(IMM), int(IDD)]
@@ -113,5 +113,5 @@ def lazy_get_date(date):
 # so that we can test remote connections.
 #
 if __name__ == "__main__":
-    app.jinja_env.globals.update(lazy_get_date=lazy_get_date)
+    app.jinja_env.globals.update(is_the_same_week=is_the_same_week) # enable jinja call this funciton
     app.run(port=configuration.PORT, host="0.0.0.0")

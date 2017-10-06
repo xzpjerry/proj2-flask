@@ -30,18 +30,34 @@ tr.even {
     background-color: rgb(224,213,179);
 }
 
-.class-schedule .what {
+.class-schedule .highlight_this_week {
     
     font-weight: bolder;
-    font-size: 150%; 
+    font-size: 120%; 
     text-align: center;
+    background-color: rgb(224,0,0);
+}
+
+.class-schedule .highlight_this_topic {
+    padding-left: 3ex;
+    padding-right: 3ex;
+    background-color: rgb(224,0,0);
+    /* leave as default */
+}
+
+.class-schedule .highlight_this_project {
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: black; 
+    padding-left: 2ex;
+    font-style: italic;
     background-color: rgb(224,0,0);
 }
 
 .class-schedule .week {
     
     font-weight: bolder;
-    font-size: 150%; 
+    font-size: 100%; 
     text-align: center; 
 }
 
