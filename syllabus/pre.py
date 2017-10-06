@@ -46,7 +46,7 @@ def process(raw):
             try:
                 base = arrow.get(content, "MM/DD/YYYY")
                 week_day = int(base.format('d')) # to get day of the date
-                if week_day != 7: # to ensure the first week base date is on Sunday
+                if week_day != 1: # to ensure the first week base date is on Monday
                     base = base.shift(days = -week_day)
             except:
                 raise ValueError("Unable to parse date {}".format(content))
